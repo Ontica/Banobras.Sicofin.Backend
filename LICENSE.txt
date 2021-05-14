@@ -1,4 +1,4 @@
-﻿Sistema de Contabilidad Financiera. SICOFIN. Banobras. 2021. Licencia
+﻿Sistema de Contabilidad Financiera (SICOFIN). Banobras 2021. Licencia
 =====================================================================
 
 Copyright (c) 2000-2021. La Vía Óntica SC, Ontica LLC and contributors.

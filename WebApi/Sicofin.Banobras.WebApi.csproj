@@ -68,10 +68,12 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
+    <PackageReference Include="Empiria.Data.Oracle" Version="7.0.0" />
     <PackageReference Include="Empiria.WebApi" Version="2.0.0" />
     <PackageReference Include="Empiria.Financial.Accounting.WebApi" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
+    <ProjectReference Include="..\..\extensions\Data.Oracle\Empiria.Data.Oracle.csproj" />
     <ProjectReference Include="..\..\extensions\WebApi\Empiria.WebApi.csproj" />
     <ProjectReference Include="..\..\financial.accounting\WebApi\Empiria.FinancialAccounting.WebApi.csproj" />
   </ItemGroup>
