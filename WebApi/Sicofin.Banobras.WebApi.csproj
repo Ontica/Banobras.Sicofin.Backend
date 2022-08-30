@@ -9,7 +9,7 @@
       A través de sus componentes, es posible adaptar o modificar el comportamiento predeterminado de
       las web apis, mandando llamar casos de uso y dominios específicos a las necesidades del Banco.
     </Description>
-    <Copyright>(c) 2000-2021. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Copyright>(c) 2021-2022. La Vía Óntica SC, Ontica LLC y autores. Todos los derechos reservados.</Copyright>
     <Version>2.0</Version>
     <AssemblyVersion>2.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
