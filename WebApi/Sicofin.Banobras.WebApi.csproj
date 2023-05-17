@@ -78,7 +78,7 @@
     <ProjectReference Include="..\..\extensions\WebApi\Empiria.WebApi.csproj" />
     <ProjectReference Include="..\..\onepoint\Security.WebApi\Empiria.OnePoint.Security.WebApi.csproj" />
     <ProjectReference Include="..\..\financial.accounting\WebApi\Empiria.FinancialAccounting.WebApi.csproj" />
-    <ProjectReference Include="..\..\financial.accounting\BanobrasIntegration\Empiria.FinancialAccounting.BanobrasIntegration.csproj" />
+    <ProjectReference Include="..\Integration\Sicofin.Banobras.Integration.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="empiria.config.json">

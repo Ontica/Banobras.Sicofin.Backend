@@ -90,6 +90,9 @@
     <ProjectReference Include="..\..\extensions\Tests\Empiria.Tests.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Integration\Sicofin.Banobras.Integration.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="empiria.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
