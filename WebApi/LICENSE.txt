@@ -1,9 +1,8 @@
-﻿# Sistema de Contabilidad Financiera (SICOFIN) BANOBRAS Web Api Module License
-==============================================================================
+﻿# Backend del Sistema de Contabilidad Financiera BANOBRAS
+=========================================================
 
-Copyright (c) 2021-2023. La Vía Óntica SC, Ontica LLC y autores.
-                         Todos los derechos reservados.
------------------------------------------------------------------------
+Copyright (c) 2021-2023 y TODOS los colaboradores.
+--------------------------------------------------
 
 I M P O R T A N T E:
 --------------------
@@ -11,10 +10,6 @@ Este producto y sus partes se distribuyen mediante una licencia GNU AFFERO
 GENERAL PUBLIC LICENSE, para uso exclusivo de BANOBRAS y de su personal,
 y para su uso por cualquier otro organismo en México perteneciente a la
 Administración Pública Federal.
-
-Para cualquier otro uso (con excepción a lo estipulado en los Términos de
-Servicio de GitHub), es indispensable obtener con nuestra organización una
-licencia distinta a esta.
 
 Lo anterior restringe la distribución, copia, modificación, almacenamiento,
 instalación, compilación o cualquier otro uso del producto o de sus partes,
