@@ -12,10 +12,10 @@ using System.Web.Http;
 
 using Empiria.WebApi;
 
-using Empiria.FinancialAccounting.Reporting;
-
 using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.UseCases;
 using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapters;
+
+using Empiria.FinancialAccounting.BanobrasIntegration.Reporting;
 
 namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
@@ -68,7 +68,6 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
         return new CollectionModel(base.Request, slips);
       }
     }
-
 
     #endregion Query web api
 
