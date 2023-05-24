@@ -12,6 +12,7 @@ using System;
 using Empiria.Services;
 
 using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapters;
+using Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter;
 
 namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.UseCases {
 
@@ -31,8 +32,18 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.UseCa
 
     #endregion Constructors and parsers
 
+    #region Use cases
 
-    #region Importers
+    public void DeleteTransactionSlips(string importationSetUID) {
+      Assertion.Require(importationSetUID, nameof(importationSetUID));
+
+      DbVouchersImporterDataService.DeleteTransactionSlips(importationSetUID);
+
+      EmpiriaLog.Info($"Se eliminó el conjunto de volantes " +
+                      $"descrito por {importationSetUID}.");
+
+    }
+
 
     public TransactionSlipDto GetTransactionSlip(string transactionSlipUID) {
       Assertion.Require(transactionSlipUID, nameof(transactionSlipUID));
@@ -61,7 +72,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.UseCa
     }
 
 
-    #endregion Importers
+    #endregion Use cases
 
   }  // class TransactionSlipUseCases
 

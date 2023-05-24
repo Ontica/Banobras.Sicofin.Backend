@@ -24,6 +24,18 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #region Query web api
 
+    [HttpDelete]
+    [Route("v2/financial-accounting/transaction-slips/delete-from-database/{importationSetUID}")]
+    public NoDataModel DeleteTransactionSlips([FromUri] string importationSetUID) {
+
+      using (var usecases = TransactionSlipUseCases.UseCaseInteractor()) {
+
+        usecases.DeleteTransactionSlips(importationSetUID);
+
+        return new NoDataModel(base.Request);
+      }
+    }
+
 
     [HttpPost]
     [Route("v2/financial-accounting/transaction-slips/export/{exportationType}")]
@@ -63,6 +75,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
       base.RequireBody(query);
 
       using (var usecases = TransactionSlipUseCases.UseCaseInteractor()) {
+
         FixedList<TransactionSlipDescriptorDto> slips = usecases.SearchTransactionSlips(query);
 
         return new CollectionModel(base.Request, slips);

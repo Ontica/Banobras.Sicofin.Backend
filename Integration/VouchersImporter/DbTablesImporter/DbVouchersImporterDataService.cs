@@ -21,6 +21,17 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
   /// <summary>Data methods used to read and write data for vouchers importation data tables.</summary>
   static internal class DbVouchersImporterDataService {
 
+    static internal void DeleteTransactionSlips(string importationSetUID) {
+
+      ImportationSetID importationSetID = MapToImportationSetID(importationSetUID);
+
+      var op = DataOperation.Parse("do_deleteTransactionSlips",
+                                   importationSetID.IdSistema,
+                                   importationSetID.TipoContabilidad,
+                                   importationSetID.FechaAfectacion);
+      DataWriter.Execute(op);
+    }
+
     static internal List<Encabezado> GetEncabezados(string importationSetUID) {
       string filter = GetVouchersFilter(importationSetUID, true);
 
@@ -64,7 +75,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
         DateTime fechaAfectacion = (DateTime) view[i]["ENC_FECHA_VOL"];
 
         var totals = new ImportVouchersTotals {
-          Description = GetImportationSetDescription(idSistema, tipoContabilidad, fechaAfectacion),
+          Description = GetImportationSetID(idSistema, tipoContabilidad, fechaAfectacion),
           UID = GetImportationSetUID(idSistema, tipoContabilidad, fechaAfectacion),
           VouchersCount = (int) (decimal) view[i]["TOTAL"]
         };
@@ -88,36 +99,19 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
     }
 
 
-    static private string GetImportationSetDescription(int idSistema, int tipoContabilidad, DateTime fechaAfectacion) {
-      var system = TransactionalSystem.Get(x => x.SourceSystemId == idSistema);
+    static public string GetVouchersFilter(string importationSetUID, bool forEncabezados) {
 
-      Assertion.Require(system, $"No se ha definido un sistema transversal con identificador {idSistema}.");
-
-      return $"{system.Name}, {fechaAfectacion.ToString("yyyy/MM/dd")}, Tipo Cont. {tipoContabilidad}";
-    }
-
-
-    static private string GetVouchersFilter(string importationSetUID, bool forEncabezados) {
-      string[] parts = importationSetUID.Split('|');
-
-      int idSistema = int.Parse(parts[0]);
-      int tipoContabilidad = int.Parse(parts[1]);
-
-      string[] fechaAfectacionParts = parts[2].Split('-');
-
-      DateTime fechaAfectacion = new DateTime(int.Parse(fechaAfectacionParts[0]),
-                                              int.Parse(fechaAfectacionParts[1]),
-                                              int.Parse(fechaAfectacionParts[2]));
+      ImportationSetID importationSetID = MapToImportationSetID(importationSetUID);
 
       if (forEncabezados) {
-        return $"(ENC_SISTEMA = {idSistema} AND " +
-                $"ENC_TIPO_CONT = {tipoContabilidad} AND " +
-                $"ENC_FECHA_VOL = {CommonMethods.FormatSqlDbDate(fechaAfectacion)})";
+        return $"(ENC_SISTEMA = {importationSetID.IdSistema} AND " +
+                $"ENC_TIPO_CONT = {importationSetID.TipoContabilidad} AND " +
+                $"ENC_FECHA_VOL = {CommonMethods.FormatSqlDbDate(importationSetID.FechaAfectacion)})";
 
       } else {
-        return $"(MCO_SISTEMA = {idSistema} AND " +
-                $"MCO_TIPO_CONT = {tipoContabilidad} AND " +
-                $"MCO_FECHA_VOL = {CommonMethods.FormatSqlDbDate(fechaAfectacion)})";
+        return $"(MCO_SISTEMA = {importationSetID.IdSistema} AND " +
+                $"MCO_TIPO_CONT = {importationSetID.TipoContabilidad} AND " +
+                $"MCO_FECHA_VOL = {CommonMethods.FormatSqlDbDate(importationSetID.FechaAfectacion)})";
 
       }
     }
@@ -125,11 +119,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
 
     static internal long NextIdVolante() {
       return CommonMethods.GetNextObjectId("SEC_ID_VOLANTE");
-    }
-
-
-    static private long NextIdVolanteIssue() {
-      return CommonMethods.GetNextObjectId("SEC_ID_VOLANTE_ISSUE");
     }
 
 
@@ -160,6 +149,64 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
       DataWriter.Execute(operation);
     }
 
+
+    #region Helpers
+
+    static private string GetImportationSetID(int idSistema, int tipoContabilidad,
+                                              DateTime fechaAfectacion) {
+
+      var system = TransactionalSystem.Get(x => x.SourceSystemId == idSistema);
+
+      Assertion.Require(system, $"No se ha definido un sistema transversal con identificador {idSistema}.");
+
+      return $"{system.Name}, {fechaAfectacion.ToString("yyyy/MM/dd")}, Tipo Cont. {tipoContabilidad}";
+    }
+
+
+    static private ImportationSetID MapToImportationSetID(string importationSetUID) {
+      var importationSetID = new ImportationSetID();
+
+      string[] parts = importationSetUID.Split('|');
+
+      importationSetID.IdSistema = int.Parse(parts[0]);
+      importationSetID.TipoContabilidad = int.Parse(parts[1]);
+
+      string[] fechaAfectacionParts = parts[2].Split('-');
+
+      importationSetID.FechaAfectacion = new DateTime(int.Parse(fechaAfectacionParts[0]),
+                                                       int.Parse(fechaAfectacionParts[1]),
+                                                       int.Parse(fechaAfectacionParts[2]));
+
+      return importationSetID;
+    }
+
+
+    static private long NextIdVolanteIssue() {
+      return CommonMethods.GetNextObjectId("SEC_ID_VOLANTE_ISSUE");
+    }
+
+
+    #endregion Helpers
+
+    #region Inner class ImportationSetID
+
+    sealed private class ImportationSetID {
+
+      internal int IdSistema {
+        get; set;
+      }
+
+      internal int TipoContabilidad {
+        get; set;
+      }
+
+      internal DateTime FechaAfectacion {
+        get; set;
+      }
+
+    }  // class ImportationSetID
+
+    #endregion Inner class ImportationSetID
 
   }  // class DbVouchersImporterDataService
 
