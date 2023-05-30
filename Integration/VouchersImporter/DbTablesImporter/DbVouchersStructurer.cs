@@ -64,7 +64,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
     private ToImportVoucherHeader MapEncabezadoToImportVoucherHeader(Encabezado encabezado) {
       return new ToImportVoucherHeader {
 
-        ImportationSet = encabezado.GetImportationSet(),
+        ImportationSet = encabezado.GetImportationSetUID(),
         UniqueID = encabezado.GetUniqueID(),
         Ledger = encabezado.GetLedger(),
         Concept = encabezado.GetConcept(),

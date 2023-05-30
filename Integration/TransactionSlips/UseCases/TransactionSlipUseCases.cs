@@ -7,8 +7,6 @@
 *  Summary  : Use cases used for retrive information about Banobras operating systems' transaction slips.    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
-
 using Empiria.Services;
 
 using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapters;
@@ -37,13 +35,14 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.UseCa
     public void DeleteTransactionSlips(string importationSetUID) {
       Assertion.Require(importationSetUID, nameof(importationSetUID));
 
-      DbVouchersImporterDataService.DeleteTransactionSlips(importationSetUID);
+      var importationSetID = ImportationSetID.ParseFromImportationSetUID(importationSetUID);
+
+      DbVouchersImporterDataService.DeleteTransactionSlips(importationSetID);
 
       EmpiriaLog.Info($"Se eliminó el conjunto de volantes " +
                       $"descrito por {importationSetUID}.");
 
     }
-
 
     public TransactionSlipDto GetTransactionSlip(string transactionSlipUID) {
       Assertion.Require(transactionSlipUID, nameof(transactionSlipUID));

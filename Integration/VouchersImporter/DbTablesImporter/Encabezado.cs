@@ -9,7 +9,7 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
-
+using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapters;
 using Empiria.FinancialAccounting.Vouchers;
 
 namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
@@ -94,12 +94,11 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
 
     #endregion Properties
 
-
     #region Methods
 
     public void AddError(string msg) {
       _headerIssues.Add(new ToImportVoucherIssue(VoucherIssueType.Error,
-                                                 this.GetImportationSet(),
+                                                 this.GetImportationSetUID(),
                                                  msg));
     }
 
@@ -108,10 +107,10 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
     }
 
 
-    internal string GetImportationSet() {
-      return DbVouchersImporterDataService.GetImportationSetUID(this.IdSistema,
-                                                                this.TipoContabilidad,
-                                                                this.FechaAfectacion);
+    internal string GetImportationSetUID() {
+      var importationSetID = new ImportationSetID(this.IdSistema, this.TipoContabilidad, this.FechaAfectacion);
+
+      return importationSetID.GetImportationSetUID();
     }
 
 
