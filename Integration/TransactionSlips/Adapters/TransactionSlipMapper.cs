@@ -46,7 +46,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapt
 
     #endregion Public mappers
 
-
     #region Helper methods
 
     static private FixedList<TransactionSlipEntryDto> MapEntries(FixedList<TransactionSlipEntry> entries) {

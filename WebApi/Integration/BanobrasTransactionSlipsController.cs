@@ -39,6 +39,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     [HttpPost]
     [Route("v2/financial-accounting/transaction-slips/export/{exportationType}")]
+    [Route("v2/financial-accounting/transaction-slips/export/{exportationType}/excel")]
     public SingleObjectModel ExportTransactionSlips([FromBody] TransactionSlipsQuery query,
                                                     [FromUri] string exportationType) {
 

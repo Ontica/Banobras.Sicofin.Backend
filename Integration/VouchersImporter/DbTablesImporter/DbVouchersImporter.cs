@@ -32,7 +32,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
       }
     }
 
-
     #region Public members
 
     internal bool IsRunning {

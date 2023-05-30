@@ -83,13 +83,11 @@
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
     <PackageReference Include="Empiria.Data.Oracle" Version="7.0.0" />
     <PackageReference Include="Empiria.Tests" Version="1.0.0" />
-    <PackageReference Include="Empiria.FinancialAccounting.FinancialConcepts" Version="2.3.0" />
+    <PackageReference Include="Empiria.FinancialAccounting.Integration" Version="2.3.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
     <ProjectReference Include="..\..\extensions\Data.Oracle\Empiria.Data.Oracle.csproj" />
     <ProjectReference Include="..\..\extensions\Tests\Empiria.Tests.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Integration\Sicofin.Banobras.Integration.csproj" />
   </ItemGroup>
   <ItemGroup>

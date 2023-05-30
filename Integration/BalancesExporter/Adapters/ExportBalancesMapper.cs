@@ -52,7 +52,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
         Sector = entry.SectorCode,
         Auxiliar = subledgerAccount.IsEmptyInstance ? "0" : subledgerAccount.Number,
         FechaUltimoMovimiento = entry.LastChangeDate,
-        Saldo = (decimal)entry.CurrentBalance,
+        Saldo = (decimal) entry.CurrentBalance,
         MonedaOrigen = Currency.Parse(entry.CurrencyCode).Id,
         NaturalezaCuenta = account.DebtorCreditor == DebtorCreditorType.Deudora ? 1 : -1,
         SaldoPromedio = Math.Round((decimal) entry.AverageBalance, 2),
