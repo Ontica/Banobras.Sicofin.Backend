@@ -4,7 +4,7 @@
 *  Assembly : Empiria.FinancialAccounting.WebApi.dll       Pattern   : Command Controller                    *
 *  Type     : BanobrasDbVoucherImporterEngineController    License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Controls a voucher importer engine that process voucher candidates stored in database tables.  *
+*  Summary  : Controls the transaction slips candidates importation process to acounting vouchers.           *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -17,12 +17,10 @@ using Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter.UseCases;
 
 namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
-  /// <summary>Controls a voucher importer engine that process voucher candidates stored
-  /// in database tables.</summary>
-  public class BanobrasDbVoucherImporterEngineController : WebApiController {
+  /// <summary>Imports transaction slips candidates to acounting vouchers.</summary>
+  public class BanobrasTransactionSlipsImporterEngineController : WebApiController {
 
     #region Database importer
-
 
     [HttpGet]
     [Route("v2/financial-accounting/vouchers/database-importer/status")]

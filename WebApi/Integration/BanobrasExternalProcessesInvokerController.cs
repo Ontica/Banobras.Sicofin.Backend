@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Banobras Integration Services                Component : External Processes Invoker            *
 *  Assembly : Empiria.FinancialAccounting.WebApi.dll       Pattern   : Command Controller                    *
-*  Type     : BanobrasExternalProcessInvokerController     License   : Please read LICENSE.txt file          *
+*  Type     : BanobrasExternalProcessesInvokerController   License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : Invoca procesos de otros sistemas pero que se ejecutan en SICOFIN (Marimba).                   *
 *                                                                                                            *
@@ -17,7 +17,7 @@ using Empiria.FinancialAccounting.BanobrasIntegration;
 namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
   /// <summary>Invoca procesos de otros sistemas pero que se ejecutan en SICOFIN (Marimba).</summary>
-  public class BanobrasExternalProcessInvokerController : WebApiController {
+  public class BanobrasExternalProcessesInvokerController : WebApiController {
 
     #region Processes
 
@@ -51,6 +51,6 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #endregion Processes
 
-  }  // class BanobrasExternalProcessInvokerController
+  }  // class BanobrasExternalProcessesInvokerController
 
 }  // namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration
