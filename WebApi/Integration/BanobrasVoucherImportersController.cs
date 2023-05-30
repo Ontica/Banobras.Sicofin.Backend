@@ -25,6 +25,8 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #region Voucher importers
 
+    /// <summary>Importa volantes desde archivos Excel utilizando la
+    /// interfaz o template definido por BANOBRAS.</summary>
     [HttpPost]
     [Route("v2/financial-accounting/vouchers/import-from-excel")]
     public SingleObjectModel ImportVouchersFromExcelFile() {
@@ -41,6 +43,10 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
+    /// <summary>Importa volantes desde otros sistemas utilizando la
+    /// interfaz única de BANOBRAS.</summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
     [HttpPost]
     [Route("v2/financial-accounting/vouchers/import-from-interfaz-unica")]
     [Route("v2/financial-accounting/vouchers/import-from-interfaz-unica/dry-run")]
@@ -58,6 +64,29 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
+    /// <summary>Remueve a través de servicios web un conjunto de volantes previamente enviado utilizando la
+    /// interfaz única de BANOBRAS, y siempre y cuando no haya sido procesado.</summary>
+    /// <param name="command"></param>
+    [HttpDelete]
+    [Route("v2/financial-accounting/vouchers/remove-importation-from-interfaz-unica")]
+    [Route("v2/financial-accounting/vouchers/remove-importation-from-interfaz-unica/dry-run")]
+    public NoDataModel RemoveInterfazUnicaVoucherImportation([FromBody] RemoveFromInterfazUnicaCommand command) {
+
+      base.RequireBody(command);
+
+      bool dryRun = base.Request.RequestUri.PathAndQuery.EndsWith("/dry-run");
+
+      using (var usecases = ImportVouchersUseCases.UseCaseInteractor()) {
+        usecases.RemoveImportationFromInterfazUnica(command, dryRun);
+
+        return new NoDataModel(base.Request);
+      }
+    }
+
+
+
+    /// <summary>Importa volantes desde archivos de texto utilizando la
+    /// interfaz definida por BANOBRAS.</summary>
     [HttpPost]
     [Route("v2/financial-accounting/vouchers/import-from-text-file")]
     public SingleObjectModel ImportVouchersFromTextFile() {

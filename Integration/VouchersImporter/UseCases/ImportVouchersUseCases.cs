@@ -14,6 +14,7 @@ using Empiria.Services;
 using Empiria.Storage;
 
 using Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter.Adapters;
+using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips;
 
 namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter.UseCases {
 
@@ -78,6 +79,22 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter.UseCa
       } else {
         return importer.Import();
       }
+    }
+
+
+    public void RemoveImportationFromInterfazUnica(RemoveFromInterfazUnicaCommand command, bool dryRun) {
+      Assertion.Require(command, nameof(command));
+
+      if (dryRun) {
+        return;
+      }
+
+      var importationSet = new ImportationSetID(command.ENC_SISTEMA,
+                                                command.ENC_TIPO_CONT,
+                                                command.ENC_FECHA_VOL);
+
+      DbVouchersImporterDataService.DeleteTransactionSlips(importationSet);
+
     }
 
 
