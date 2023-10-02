@@ -6,9 +6,11 @@
 *                                                                                                            *
 *  Summary  : Exports transaction slips (volantes) to Microsoft Excel.                                       *
 *                                                                                                            *
-*************************
-*Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+**************************Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+
+using Empiria.Office;
+using Empiria.Storage;
 
 using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips;
 using Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapters;
