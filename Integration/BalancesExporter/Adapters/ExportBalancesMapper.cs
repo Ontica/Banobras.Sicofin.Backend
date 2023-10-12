@@ -8,7 +8,7 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-
+using System.Linq;
 using Empiria.FinancialAccounting.BalanceEngine;
 using Empiria.FinancialAccounting.BalanceEngine.Adapters;
 
@@ -29,7 +29,8 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
     static private FixedList<BalanzaTradicionalEntryDto> GetEntriesToBeExported(TrialBalanceDto trialBalance) {
       var list = trialBalance.Entries.FindAll(x => x.ItemType == TrialBalanceItemType.Entry ||
                                                    x.ItemType == TrialBalanceItemType.Summary)
-                                      .Select(x => (BalanzaTradicionalEntryDto) x);
+                                     .Select(x => (BalanzaTradicionalEntryDto) x)
+                                     .Distinct();
 
       return list.ToFixedList();
     }
@@ -52,7 +53,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
         Sector = entry.SectorCode,
         Auxiliar = subledgerAccount.IsEmptyInstance ? "0" : subledgerAccount.Number,
         FechaUltimoMovimiento = entry.LastChangeDate,
-        Saldo = (decimal) entry.CurrentBalance,
+        Saldo = entry.CurrentBalanceForBalances,
         MonedaOrigen = Currency.Parse(entry.CurrencyCode).Id,
         NaturalezaCuenta = account.DebtorCreditor == DebtorCreditorType.Deudora ? 1 : -1,
         SaldoPromedio = Math.Round((decimal) entry.AverageBalance, 2),
