@@ -20,4 +20,4 @@ de derechos de autor.
 
 ## Copyright
 
-Copyright © 2021-2023. BANOBRAS y TODOS los colaboradores.
+Copyright © 2021-2024. BANOBRAS y TODOS los colaboradores.
