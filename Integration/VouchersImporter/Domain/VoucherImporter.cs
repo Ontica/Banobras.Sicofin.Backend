@@ -263,7 +263,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
         Concept = header.Concept,
         AccountingDate = header.AccountingDate,
         RecordingDate = header.RecordingDate,
-        ElaboratedByUID = header.ElaboratedBy.UID,
+        ElaboratedById = header.ElaboratedBy.Id,
         LedgerUID = header.Ledger.UID,
         TransactionTypeUID = header.TransactionType.UID,
         VoucherTypeUID = header.VoucherType.UID,
