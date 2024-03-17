@@ -22,10 +22,12 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
     private readonly FileInfo _textFile;
 
     internal TextFileImporter(ImportVouchersCommand command, FileInfo textFile) {
-      Assertion.Require(command, "command");
-      Assertion.Require(textFile, "textFile");
+      Assertion.Require(command, nameof(command));
+      Assertion.Require(textFile, nameof(textFile));
 
       _command = command;
+      _command.CheckProtectedAccounts = true;
+
       _textFile = textFile;
     }
 

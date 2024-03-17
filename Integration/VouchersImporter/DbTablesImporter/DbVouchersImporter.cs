@@ -56,6 +56,8 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
 
       command.CanEditVoucherEntries = false;
 
+      command.CheckProtectedAccounts = false;
+
       SetIsRunningFlag(true);
 
       await Task.Run(() => {

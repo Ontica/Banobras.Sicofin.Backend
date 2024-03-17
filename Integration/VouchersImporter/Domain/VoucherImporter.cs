@@ -51,7 +51,9 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
           foreach (var entry in voucher.Entries) {
             var mappedEntry = MapToVoucherEntryFields(entry);
 
-            FixedList<string> entryIssues = usecases.ValidateVoucherEntryToImport(voucherFields, mappedEntry);
+            FixedList<string> entryIssues = usecases.ValidateVoucherEntryToImport(voucherFields,
+                                                                                  mappedEntry,
+                                                                                  _command.CheckProtectedAccounts);
 
             foreach (var issueText in entryIssues) {
               var issue = new ToImportVoucherIssue(VoucherIssueType.Error,
@@ -95,7 +97,9 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
         foreach (var entry in voucher.Entries) {
           var mappedEntry = MapToVoucherEntryFields(entry);
 
-          FixedList<string> entryIssues = usecases.ValidateVoucherEntryToImport(voucherFields, mappedEntry);
+          FixedList<string> entryIssues = usecases.ValidateVoucherEntryToImport(voucherFields,
+                                                                                mappedEntry,
+                                                                                _command.CheckProtectedAccounts);
 
           foreach (var issueText in entryIssues) {
             var issue = new ToImportVoucherIssue(VoucherIssueType.Error,

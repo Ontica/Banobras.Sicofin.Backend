@@ -22,10 +22,11 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
     private readonly FixedList<ExcelVoucherEntry> _excelFileEntries;
 
     internal ExcelVouchersImporter(ImportVouchersCommand command, FileInfo excelFile) {
-      Assertion.Require(command, "command");
-      Assertion.Require(excelFile, "excelFile");
+      Assertion.Require(command, nameof(command));
+      Assertion.Require(excelFile, nameof(excelFile));
 
       _command = command;
+      _command.CheckProtectedAccounts = true;
 
       _excelFileEntries = ReadExcelContent(excelFile);
     }
