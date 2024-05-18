@@ -9,6 +9,8 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
+using Empiria.Data;
+
 using Empiria.FinancialAccounting.Vouchers;
 using Empiria.FinancialAccounting.Vouchers.Adapters;
 
@@ -93,8 +95,8 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips {
           throw Assertion.EnsureNoReachThisCode();
       }
 
-      return $"{CommonMethods.FormatSqlDbDate(_query.FromDate)} <= {fieldName} " +
-             $"AND {fieldName} <= {CommonMethods.FormatSqlDbDate(_query.ToDate)}";
+      return $"{DataCommonMethods.FormatSqlDbDate(_query.FromDate)} <= {fieldName} " +
+             $"AND {fieldName} <= {DataCommonMethods.FormatSqlDbDate(_query.ToDate)}";
     }
 
 

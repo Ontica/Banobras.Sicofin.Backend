@@ -101,19 +101,19 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
       if (forEncabezados) {
         return $"(ENC_SISTEMA = {importationSetID.IdSistema} AND " +
                 $"ENC_TIPO_CONT = {importationSetID.TipoContabilidad} AND " +
-                $"ENC_FECHA_VOL = {CommonMethods.FormatSqlDbDate(importationSetID.FechaAfectacion)})";
+                $"ENC_FECHA_VOL = {DataCommonMethods.FormatSqlDbDate(importationSetID.FechaAfectacion)})";
 
       } else {
         return $"(MCO_SISTEMA = {importationSetID.IdSistema} AND " +
                 $"MCO_TIPO_CONT = {importationSetID.TipoContabilidad} AND " +
-                $"MCO_FECHA_VOL = {CommonMethods.FormatSqlDbDate(importationSetID.FechaAfectacion)})";
+                $"MCO_FECHA_VOL = {DataCommonMethods.FormatSqlDbDate(importationSetID.FechaAfectacion)})";
 
       }
     }
 
 
     static internal long NextIdVolante() {
-      return CommonMethods.GetNextObjectId("SEC_ID_VOLANTE");
+      return DataCommonMethods.GetNextObjectId("SEC_ID_VOLANTE");
     }
 
 
@@ -147,7 +147,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
     #region Helpers
 
     static private long NextIdVolanteIssue() {
-      return CommonMethods.GetNextObjectId("SEC_ID_VOLANTE_ISSUE");
+      return DataCommonMethods.GetNextObjectId("SEC_ID_VOLANTE_ISSUE");
     }
 
 
