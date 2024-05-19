@@ -1,15 +1,7 @@
-﻿# BANOBRAS - Sistema de Contabilidad Financiera (SICOFIN) - Web Api Module
+﻿# BANOBRAS - Sistema de contabilidad Financiera (SICOFIN) - External Interfaces Tests Module
 
-El propósito de este módulo es servir como un integrador de diferentes módulos con
-servicios web. A través de estos servicios es que se comunica el backend del Sistema
-SICOFIN de BANOBRAS con otros sistemas, incluyendo la aplicación frontend del propio sistema.
-
-Así mismo, mediante sus componentes es posible adaptar o modificar el comportamiento
-predeterminado de los servicios web, mandando llamar casos de uso y dominios específicos
-a las necesidades más cambiantes del Banco.
-
-Este módulo es el que se instala en el servidor de aplicaciones IIS donde se ejecuta el
-backend del Sistema SICOFIN.
+Suite de casos de prueba específica para los componentes de integración
+del Sistema SICOFIN de BANOBRAS con otros sistemas del Banco.
 
 ## Licencia
 
@@ -31,4 +23,5 @@ e internacionales de derechos de autor.
 
 ## Copyright
 
-Copyright © 2021-2024. BANOBRAS y TODOS los colaboradores.
+Copyright © 2021-2024. La Vía Óntica SC, Ontica LLC y autores.
+Todos los derechos reservados.
