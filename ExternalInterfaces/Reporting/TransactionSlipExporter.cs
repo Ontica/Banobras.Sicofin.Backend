@@ -90,7 +90,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlip.Export
         excelFile.SetCell($"M{i}", slip.Header.StatusName);
 
         if (slip.Issues.Count != 0) {
-          excelFile.SetRowStyleBold(i);
+          excelFile.SetRowBold(i, 13);
         }
 
         i++;
