@@ -21,8 +21,8 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.Reporting {
   public class ExcelExporterService {
 
 
-    public FileReportDto Export(FixedList<TransactionSlipDto> transactionSlips,
-                                 string exportationType) {
+    public FileDto Export(FixedList<TransactionSlipDto> transactionSlips,
+                          string exportationType) {
 
       Assertion.Require(transactionSlips, "transactionSlips");
       Assertion.Require(exportationType, "exportationType");
@@ -53,7 +53,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.Reporting {
         throw Assertion.EnsureNoReachThisCode($"Invalid exportation type '{exportationType}'.");
       }
 
-      return excelFile.ToFileReportDto();
+      return excelFile.ToFileDto();
 
     }
 

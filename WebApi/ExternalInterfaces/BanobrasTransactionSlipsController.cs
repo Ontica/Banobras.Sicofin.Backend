@@ -51,7 +51,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
         var excelExporter = new ExcelExporterService();
 
-        FileReportDto excelFileDto = excelExporter.Export(slips, exportationType);
+        FileDto excelFileDto = excelExporter.Export(slips, exportationType);
 
         return new SingleObjectModel(base.Request, excelFileDto);
       }
