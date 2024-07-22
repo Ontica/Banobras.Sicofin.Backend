@@ -9,9 +9,18 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
-using Empiria.FinancialAccounting.Vouchers.Adapters;
-
 namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapters {
+
+
+  public enum DateSearchField {
+
+    None,
+
+    AccountingDate,
+
+    RecordingDate,
+
+  }
 
   /// <summary>Query payload used to search transaction slips (volantes).</summary>
   public class TransactionSlipsQuery {

@@ -74,7 +74,7 @@
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
     <PackageReference Include="Empiria.Data.Oracle" Version="7.0.0" />
     <PackageReference Include="Empiria.WebApi" Version="2.0.0" />
-    <PackageReference Include="Empiria.OnePoint.Security.WebApi" Version="2.0.0" />
+    <PackageReference Include="Empiria.OnePoint.Security.WebApi" Version="4.0.0" />
     <PackageReference Include="Empiria.Financial.Accounting.WebApi" Version="2.4.0" />
     <PackageReference Include="Banobras.Sicofin.ExternalInterfaces" Version="2.4.0" />
   </ItemGroup>
