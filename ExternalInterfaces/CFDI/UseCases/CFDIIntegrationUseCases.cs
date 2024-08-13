@@ -32,6 +32,16 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.CFDI.UseCases {
 
     #region Use cases
 
+    public FixedList<CFDIBalanceDto> GetBalances(CFDIIntegrationCommand command) {
+      Assertion.Require(command, nameof(command));
+
+      command.EnsureValid();
+
+      var builder = new CFDIBalancesBuilder(command);
+
+      return builder.Build();
+    }
+
 
     public FixedList<CFDITransactionDto> GetTransactions(CFDIIntegrationCommand command) {
       Assertion.Require(command, nameof(command));
