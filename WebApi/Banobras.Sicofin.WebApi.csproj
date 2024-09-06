@@ -75,6 +75,7 @@
     <PackageReference Include="Empiria.Data.Oracle" Version="7.0.0" />
     <PackageReference Include="Empiria.WebApi" Version="2.0.0" />
     <PackageReference Include="Empiria.OnePoint.Security.WebApi" Version="4.0.0" />
+    <PackageReference Include="Empiria.OnePoint.Reporting.WebApi" Version="4.0.0" />
     <PackageReference Include="Empiria.Financial.Accounting.WebApi" Version="2.4.0" />
     <PackageReference Include="Banobras.Sicofin.ExternalInterfaces" Version="2.4.0" />
   </ItemGroup>
@@ -82,6 +83,7 @@
     <ProjectReference Include="..\..\extensions\Data.Oracle\Empiria.Data.Oracle.csproj" />
     <ProjectReference Include="..\..\extensions\WebApi\Empiria.WebApi.csproj" />
     <ProjectReference Include="..\..\onepoint\Security.WebApi\Empiria.OnePoint.Security.WebApi.csproj" />
+    <ProjectReference Include="..\..\onepoint\Reporting.WebApi\Empiria.OnePoint.Reporting.WebApi.csproj" />
     <ProjectReference Include="..\..\financial.accounting\WebApi\Empiria.FinancialAccounting.WebApi.csproj" />
     <ProjectReference Include="..\ExternalInterfaces\Banobras.Sicofin.ExternalInterfaces.csproj" />
   </ItemGroup>
