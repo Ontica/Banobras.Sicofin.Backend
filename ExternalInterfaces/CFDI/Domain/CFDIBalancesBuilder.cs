@@ -73,15 +73,33 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.CFDI {
     }
 
     private CFDIBalanceDto Map(SaldosPorCuentaEntryDto balance) {
-      return new CFDIBalanceDto {
+      Account account = AccountsChart.IFRS.GetAccount(_command.AccountNumber);
+
+      var dto = new CFDIBalanceDto {
         LedgerNumber = balance.LedgerNumber,
         LedgerName = Ledger.Parse(balance.LedgerUID).Name,
+        AccountNumber = account.Number,
+        AccountName = account.Name,
         CurrencyCode = balance.CurrencyCode,
         InitialBalance = balance.InitialBalance,
         Debits = balance.Debit,
         Credits = balance.Credit,
         CurrentBalance = balance.CurrentBalanceForBalances,
       };
+
+      if (string.IsNullOrEmpty(_command.SubledgerAccountNumber)) {
+        return dto;
+      }
+
+      var subledgerAccount = SubledgerAccount.TryParse(AccountsChart.IFRS,
+                                                       _command.SubledgerAccountNumber);
+
+      if (subledgerAccount != null) {
+        dto.SubledgerAccountNumber = subledgerAccount.Number;
+        dto.SubledgerAccountName = subledgerAccount.Name;
+      }
+
+      return dto;
     }
 
     #endregion Helpers

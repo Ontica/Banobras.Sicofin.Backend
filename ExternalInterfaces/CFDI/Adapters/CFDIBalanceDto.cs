@@ -23,6 +23,24 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.CFDI.Adapters {
     }
 
 
+    public string AccountNumber {
+      get; internal set;
+    }
+
+
+    public string AccountName {
+      get; internal set;
+    }
+
+    public string SubledgerAccountNumber {
+      get; internal set;
+    }
+
+
+    public string SubledgerAccountName {
+      get; internal set;
+    }
+
     public string CurrencyCode {
       get; internal set;
     }
