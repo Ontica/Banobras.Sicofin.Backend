@@ -21,7 +21,6 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #region Processes
 
-
     [HttpPost]
     [Route("v2/financial-accounting/integration/external-processes/procesar-conciliacion-sic")]
     public SingleObjectModel ProcesarConciliacionSIC([FromBody] ExecuteConcilacionSICCommand command) {
