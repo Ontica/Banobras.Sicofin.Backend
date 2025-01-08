@@ -31,4 +31,4 @@ e internacionales de derechos de autor.
 
 ## Copyright
 
-Copyright © 2021-2024. BANOBRAS y TODOS los colaboradores.
+Copyright © 2021-2025. La Vía Óntica SC, Ontica LLC y autores.
