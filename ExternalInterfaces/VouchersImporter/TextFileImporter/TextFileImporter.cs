@@ -26,7 +26,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
       Assertion.Require(textFile, nameof(textFile));
 
       _command = command;
-      _command.CheckProtectedAccounts = true;
 
       _textFile = textFile;
     }

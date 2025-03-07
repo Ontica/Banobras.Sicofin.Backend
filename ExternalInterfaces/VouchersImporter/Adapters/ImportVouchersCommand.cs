@@ -50,11 +50,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter.Adapt
     }
 
 
-    public bool CheckProtectedAccounts {
-      get; set;
-    } = true;
-
-
     public bool TryToCloseVouchers {
       get; set;
     }

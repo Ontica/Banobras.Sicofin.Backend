@@ -26,7 +26,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
       Assertion.Require(excelFile, nameof(excelFile));
 
       _command = command;
-      _command.CheckProtectedAccounts = true;
 
       _excelFileEntries = ReadExcelContent(excelFile);
     }
