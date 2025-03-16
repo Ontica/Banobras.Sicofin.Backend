@@ -8,6 +8,8 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
+using System;
+
 namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
 
   /// <summary>Holds a PYC supplier account.</summary>
@@ -39,6 +41,12 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
 
     [DataField("PRV_AUXILIAR")]
     public string SubledgerAccountNo {
+      get; internal set;
+    }
+
+
+    [DataField("ULTIMO_MOVIMIENTO")]
+    public DateTime LastUpdate {
       get; internal set;
     }
 

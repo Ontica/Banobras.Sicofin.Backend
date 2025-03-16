@@ -20,10 +20,10 @@ namespace Empiria.FinancialAccounting.Tests.BanobrasIntegration {
     #region Facts
 
     [Fact]
-    public void Should_Execute_SuppliersMatcher() {
+    public void Should_CleanData() {
       var sut = new SuppliersMatcher();
 
-      sut.Execute();
+      sut.CleanData();
 
       Assert.True(true);
     }

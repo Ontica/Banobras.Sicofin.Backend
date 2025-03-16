@@ -32,6 +32,33 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
       return DataReader.GetPlainObjectFixedList<SicofinSupplier>(op);
     }
 
+
+    static internal void Write(PYCSupplier supplier) {
+      var sql = "UPDATE Z_PROVEEDORES_UTILIZADOS " +
+               $"SET NUEVO_NOMBRE = '{supplier.CleanName}', " +
+               $"KEYWORDS_TAGS = '{supplier.KeywordsTags}', " +
+               $"MATCH_ID = {supplier.MatchId} " +
+               $"WHERE PRV_ID = {supplier.AssignedId}";
+
+      var op = DataOperation.Parse(sql);
+
+      DataWriter.Execute(op);
+    }
+
+
+    static internal void Write(SicofinSupplier supplier) {
+      var sql = "UPDATE Z_AUXILIARES_UTILIZADOS " +
+                $"SET NUEVO_NOMBRE = '{supplier.CleanName}', " +
+                $"KEYWORDS_TAGS = '{supplier.KeywordsTags}', " +
+                $"MATCH_ID = {supplier.MatchId}, " +
+                $"PROXIMITY_FACTOR = {supplier.ProximityFactor} " +
+                $"WHERE ID_CUENTA_AUXILIAR = {supplier.SubledgerAccountId}";
+
+      var op = DataOperation.Parse(sql);
+
+      DataWriter.Execute(op);
+    }
+
   }  // class SuppliersMatcherData
 
 }  // namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC
