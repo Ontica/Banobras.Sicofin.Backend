@@ -30,6 +30,16 @@ namespace Empiria.FinancialAccounting.Tests.BanobrasIntegration {
 
 
     [Fact]
+    public void Should_Match_Suppliers() {
+      var sut = new SuppliersMatcher();
+
+      sut.Match();
+
+      Assert.True(true);
+    }
+
+
+    [Fact]
     public void Should_Read_PYC_Suppliers() {
       FixedList<PYCSupplier> sut = SuppliersMatcherData.GetPYCSuppliers();
 
