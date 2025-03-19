@@ -62,10 +62,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
       get; internal set;
     }
 
-    public decimal ProximityFactor {
-      get; internal set;
-    }
-
   }  // class PYCSupplier
 
 }  // namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC

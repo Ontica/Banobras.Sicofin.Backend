@@ -27,9 +27,12 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
 
     public void Match() {
       LoadData();
+
       ProcessExactMatchData(400);
+
       ProcessSubledgerAccountsMatchData(300, 75, false);
       ProcessSubledgerAccountsMatchData(300, 50, true);
+
       ProcessAccountNamesMatchData(100, 75, false);
       ProcessAccountNamesMatchData(100, 50, true);
     }
@@ -42,7 +45,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
         return EmpiriaStringDistance.JaccardProximityFactor(stringA, stringB) * 100;
 
       } else {
-        return EmpiriaStringDistance.MongeElkanProximityFactor(EmpiriaStringDistance.DistanceAlgorithm.DamerauLevenshtein,
+        return EmpiriaStringDistance.MongeElkanProximityFactor(EmpiriaStringDistance.DistanceAlgorithm.Levenshtein,
                                                                stringA, stringB) * 100;
       }
     }
@@ -73,13 +76,24 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
     }
 
 
-    private FixedList<PYCSupplier> GetUnmatchedPYCSuppliers() {
-      return pycSuppliers.FindAll(x => x.MatchId == -1);
+    private SicofinSupplier GetSicofinSupplier(int subledgerAccountId) {
+      return sicofinSuppliers.Find(x => x.SubledgerAccountId == subledgerAccountId);
     }
 
 
+
+    private FixedList<PYCSupplier> GetUnmatchedPYCSuppliers(int groupOffset) {
+      return pycSuppliers.FindAll(x => x.MatchId == -1)
+                         .Sort((x, y) => x.KeywordsTags.Length.CompareTo(y.KeywordsTags.Length))
+                         .Reverse();
+    }
+
+
+
     private FixedList<SicofinSupplier> GetUnmatchedSicofinSuppliers() {
-      return sicofinSuppliers.FindAll(x => x.MatchId == -1);
+      return sicofinSuppliers.FindAll(x => x.MatchId == -1)
+                             .Sort((x, y) => x.KeywordsTags.Length.CompareTo(y.KeywordsTags.Length))
+                             .Reverse();
     }
 
 
@@ -97,7 +111,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
         if (pycSupplier == null) {
           continue;
         }
-
 
         StoreMatch(pycSupplier, sicofinSupplier, groupOffset);
       }
@@ -131,31 +144,9 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
 
       foreach (SicofinSupplier sicofinSupplier in GetUnmatchedSicofinSuppliers()) {
 
-        PYCSupplier pycBestMatch = null;
+        TryMatchBestPYCSupplier(sicofinSupplier, groupOffset, minFactor, tokenBased);
 
-        foreach (PYCSupplier pycSupplier in GetUnmatchedPYCSuppliers()) {
-
-          decimal proximityFactor = CalculateProximityFactor(sicofinSupplier.KeywordsTags,
-                                                             pycSupplier.KeywordsTags, tokenBased);
-
-          if (proximityFactor < minFactor) {
-            continue;
-          }
-
-          if (pycBestMatch == null || pycBestMatch.ProximityFactor < proximityFactor) {
-            pycBestMatch = pycSupplier;
-            pycBestMatch.ProximityFactor = proximityFactor;
-          }
-
-        }  // foreach
-
-        if (pycBestMatch == null) {
-          continue;
-        }
-
-        StoreMatch(pycBestMatch, sicofinSupplier, groupOffset + pycBestMatch.ProximityFactor);
-
-      }  // foreach
+      }
     }
 
 
@@ -167,6 +158,65 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
 
       SuppliersMatcherData.Write(pycSupplier);
       SuppliersMatcherData.Write(sicofinSupplier);
+    }
+
+
+    private void TryMatchBestPYCSupplier(SicofinSupplier sicofinSupplier, int groupOffset, int minFactor, bool tokenBased) {
+
+      PYCSupplier pycBestMatch = null;
+      decimal pycBestMatchFactor = 0;
+
+      foreach (PYCSupplier pycSupplier in GetUnmatchedPYCSuppliers(groupOffset)) {
+
+        decimal proximityFactor = CalculateProximityFactor(sicofinSupplier.KeywordsTags,
+                                                           pycSupplier.KeywordsTags, tokenBased);
+
+        if (proximityFactor < minFactor) {
+          continue;
+        }
+
+        if (pycBestMatchFactor < proximityFactor) {
+          pycBestMatch = pycSupplier;
+          pycBestMatchFactor = proximityFactor;
+        }
+
+      }  // foreach
+
+      if (pycBestMatch == null) {
+        return;
+      }
+
+      SicofinSupplier toRematch = TryUnmatchCurrentSuppliersIfNeeded(sicofinSupplier, groupOffset + pycBestMatchFactor);
+
+      StoreMatch(pycBestMatch, sicofinSupplier, groupOffset + pycBestMatchFactor);
+
+      if (toRematch != null) {
+        TryMatchBestPYCSupplier(toRematch, groupOffset, minFactor, tokenBased);
+      }
+    }
+
+    private SicofinSupplier TryUnmatchCurrentSuppliersIfNeeded(SicofinSupplier sicofinSupplier,
+                                                               decimal proximityFactor) {
+      var pycSupplier = pycSuppliers.Find(x => x.MatchId == sicofinSupplier.SubledgerAccountId);
+
+      if (pycSupplier == null) {
+        return null;
+      }
+
+      SicofinSupplier sicofinSupplierToUnmatch = GetSicofinSupplier(pycSupplier.MatchId);
+
+      if (sicofinSupplierToUnmatch.ProximityFactor > proximityFactor) {
+        return null;
+      }
+
+      sicofinSupplier.MatchId = -1;
+      sicofinSupplier.ProximityFactor = 0;
+      SuppliersMatcherData.Write(sicofinSupplierToUnmatch);
+
+      pycSupplier.MatchId = -1;
+      SuppliersMatcherData.Write(pycSupplier);
+
+      return sicofinSupplierToUnmatch;
     }
 
     #endregion Helpers
