@@ -28,13 +28,13 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
     public void Match() {
       LoadData();
 
-      ProcessExactMatchData(400);
+      ProcessExactMatchData(600);
 
-      ProcessSubledgerAccountsMatchData(300, 75, false);
-      ProcessSubledgerAccountsMatchData(300, 50, true);
+      ProcessSubledgerAccountsMatchData(399, 75, false);
+      ProcessSubledgerAccountsMatchData(399, 50, true);
 
-      ProcessAccountNamesMatchData(100, 75, false);
-      ProcessAccountNamesMatchData(100, 50, true);
+      ProcessAccountNamesMatchData(199, 75, false);
+      ProcessAccountNamesMatchData(199, 50, true);
     }
 
     #region Helpers
@@ -186,7 +186,8 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
         return;
       }
 
-      SicofinSupplier toRematch = TryUnmatchCurrentSuppliersIfNeeded(sicofinSupplier, groupOffset + pycBestMatchFactor);
+      SicofinSupplier toRematch = TryUnmatchCurrentSuppliersIfNeeded(sicofinSupplier,
+                                                                     groupOffset + pycBestMatchFactor);
 
       StoreMatch(pycBestMatch, sicofinSupplier, groupOffset + pycBestMatchFactor);
 
@@ -194,6 +195,7 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.PYC {
         TryMatchBestPYCSupplier(toRematch, groupOffset, minFactor, tokenBased);
       }
     }
+
 
     private SicofinSupplier TryUnmatchCurrentSuppliersIfNeeded(SicofinSupplier sicofinSupplier,
                                                                decimal proximityFactor) {

@@ -114,7 +114,6 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.Adapt
       return new NamedEntityDto(voucher.Id.ToString(), voucher.Number);
     }
 
-
     #endregion Helper methods
 
   }  // class TransactionSlipMapper
