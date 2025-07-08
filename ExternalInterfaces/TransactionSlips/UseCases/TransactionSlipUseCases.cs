@@ -4,7 +4,7 @@
 *  Assembly : Banobras.Sicofin.ExternalInterfaces.dll       Pattern   : Use case interactor class            *
 *  Type     : TransactionSlipUseCases                       License   : Please read LICENSE.txt file         *
 *                                                                                                            *
-*  Summary  : Use cases used for retrive information about Banobras operating systems' transaction slips.    *
+*  Summary  : Use cases used for retrieve information about Banobras operating systems' transaction slips.   *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using Empiria.Services;
@@ -14,7 +14,7 @@ using Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter;
 
 namespace Empiria.FinancialAccounting.BanobrasIntegration.TransactionSlips.UseCases {
 
-  /// <summary>Use cases used for retrive information about Banobras operating
+  /// <summary>Use cases used for retrieve information about Banobras operating
   /// systems' transaction slips.</summary>
   public class TransactionSlipUseCases : UseCase {
 

@@ -25,8 +25,8 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #region Voucher importers
 
-    /// <summary>Importa volantes desde archivos Excel utilizando la
-    /// interfaz o template definido por BANOBRAS.</summary>
+    /// <summary>Importa volantes desde archivos Excel utilizando el template
+    /// definido por BANOBRAS.</summary>
     [HttpPost]
     [Route("v2/financial-accounting/vouchers/import-from-excel")]
     public SingleObjectModel ImportVouchersFromExcelFile() {
@@ -43,10 +43,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
-    /// <summary>Importa volantes desde otros sistemas utilizando la
-    /// interfaz única de BANOBRAS.</summary>
-    /// <param name="command"></param>
-    /// <returns></returns>
+    /// <summary>Importa volantes desde otros sistemas utilizando la interfaz única de BANOBRAS.</summary>
     [HttpPost]
     [Route("v2/financial-accounting/vouchers/import-from-interfaz-unica")]
     [Route("v2/financial-accounting/vouchers/import-from-interfaz-unica/dry-run")]
@@ -64,9 +61,8 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
-    /// <summary>Remueve a través de servicios web un conjunto de volantes previamente enviado utilizando la
-    /// interfaz única de BANOBRAS, y siempre y cuando no haya sido procesado.</summary>
-    /// <param name="command"></param>
+    /// <summary>Remueve a través de servicios web un conjunto de volantes previamente enviado utilizando
+    /// la interfaz única de BANOBRAS, y siempre y cuando no haya sido procesado.</summary>
     [HttpDelete]
     [Route("v2/financial-accounting/vouchers/remove-importation-from-interfaz-unica")]
     [Route("v2/financial-accounting/vouchers/remove-importation-from-interfaz-unica/dry-run")]
@@ -84,8 +80,8 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
-    /// <summary>Importa volantes desde archivos de texto utilizando la
-    /// interfaz definida por BANOBRAS.</summary>
+    /// <summary>Importa volantes desde archivos de texto utilizando la interfaz
+    /// definida por BANOBRAS.</summary>
     [HttpPost]
     [Route("v2/financial-accounting/vouchers/import-from-text-file")]
     public SingleObjectModel ImportVouchersFromTextFile() {

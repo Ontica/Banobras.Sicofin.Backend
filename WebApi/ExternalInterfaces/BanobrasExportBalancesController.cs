@@ -7,7 +7,7 @@
 *  Summary  : Query web API used to return balances used by other systems (Banobras).                        *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
+
 using System.Web.Http;
 
 using Empiria.WebApi;
@@ -22,8 +22,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #region Web Apis
 
-
-    [HttpPost, AllowAnonymous]
+    [HttpPost]   // ToDo: AllowAnonymous Removed
     [Route("v2/financial-accounting/integration/export-balances")]
     public SingleObjectModel ExportBalances([FromBody] ExportBalancesCommand command) {
 
@@ -40,7 +39,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
-    [HttpPost, AllowAnonymous]
+    [HttpPost]      // ToDo: Remove AllowAnonymous
     [Route("v2/financial-accounting/integration/balances-by-day")]
     public CollectionModel ExportBalancesByDay([FromBody] BanobrasExportBalancesCommand banobrasCommand) {
 
@@ -57,7 +56,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
-    [HttpPost, AllowAnonymous]
+    [HttpPost]  // // ToDo: Remove AllowAnonymous
     [Route("v2/financial-accounting/integration/balances-by-month")]
     public CollectionModel ExportBalancesByMonth([FromBody] BanobrasExportBalancesCommand banobrasCommand) {
 

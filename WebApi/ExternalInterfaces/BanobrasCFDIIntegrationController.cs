@@ -7,7 +7,7 @@
 *  Summary  : Query web API used to return accounts balances and transactions to the CFDI System.            *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
+
 using System.Web.Http;
 
 using Empiria.WebApi;
@@ -22,7 +22,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     #region Web Apis
 
-    [HttpPost, AllowAnonymous]
+    [HttpPost, AllowAnonymous]  // ToDo: AllowAnonymous Removed
     [Route("v2/financial-accounting/integration/cfdi-balances")]
     public CollectionModel CFDIBalances([FromBody] CFDIIntegrationCommand command) {
 
@@ -37,7 +37,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
     }
 
 
-    [HttpPost, AllowAnonymous]
+    [HttpPost, AllowAnonymous]   // ToDo: AllowAnonymous Removed
     [Route("v2/financial-accounting/integration/cfdi-transactions")]
     public CollectionModel CFDITransactions([FromBody] CFDIIntegrationCommand command) {
 
