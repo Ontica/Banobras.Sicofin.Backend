@@ -21,12 +21,28 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
       get; internal set;
     }
 
-    public string Area {
-      get; internal set;
+    public int Anio {
+      get {
+        return Fecha.Year;
+      }
     }
 
-    public int Moneda {
-      get; internal set;
+    public int Mes {
+      get {
+        return Fecha.Month;
+      }
+    }
+
+    public int Dia {
+      get {
+        return Fecha.Day;
+      }
+    }
+
+    public string Area {
+      get {
+        return "AREA";
+      }
     }
 
     public string NumeroMayor {
@@ -34,6 +50,10 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
     }
 
     public string Cuenta {
+      get; internal set;
+    }
+
+    public int NaturalezaCuenta {
       get; internal set;
     }
 
@@ -45,23 +65,17 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
       get; internal set;
     }
 
-    public DateTime FechaUltimoMovimiento {
-      get; internal set;
-    }
-
-    public decimal Saldo {
-      get; internal set;
+    public int Moneda {
+      get {
+        return 1;
+      }
     }
 
     public int MonedaOrigen {
       get; internal set;
     }
 
-    public int NaturalezaCuenta {
-      get; internal set;
-    }
-
-    public decimal SaldoPromedio {
+    public decimal SaldoAnterior {
       get; internal set;
     }
 
@@ -73,32 +87,21 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
       get; internal set;
     }
 
-    public decimal SaldoAnterior {
+    public decimal Saldo {
+      get; internal set;
+    }
+
+    public decimal SaldoPromedio {
+      get; internal set;
+    }
+
+    public DateTime FechaUltimoMovimiento {
       get; internal set;
     }
 
     public string CalificaMoneda {
-      get; internal set;
-    }
-
-
-    public int Anio {
       get {
-        return this.Fecha.Year;
-      }
-    }
-
-
-    public int Mes {
-      get {
-        return this.Fecha.Month;
-      }
-    }
-
-
-    public int Dia {
-      get {
-        return this.Fecha.Day;
+        return "null";
       }
     }
 

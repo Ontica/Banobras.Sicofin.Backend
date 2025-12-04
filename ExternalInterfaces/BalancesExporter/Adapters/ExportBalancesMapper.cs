@@ -12,8 +12,6 @@ using System.Linq;
 using Empiria.FinancialAccounting.BalanceEngine;
 using Empiria.FinancialAccounting.BalanceEngine.Adapters;
 
-using Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Data;
-
 namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapters {
 
   static public class ExportBalancesMapper {
@@ -41,27 +39,21 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapt
       var account = StandardAccount.Parse(entry.StandardAccountId);
       var subledgerAccount = SubledgerAccount.Parse(entry.SubledgerAccountId);
 
-      var calificaMoneda = CalificacionMoneda.TryParse(account.Number,
-                                                       entry.SectorCode,
-                                                       subledgerAccount.Number);
       return new ExportedBalancesDto {
+        Empresa = command.AccountsChartId,
         Fecha = command.ToDate,
-        Area = "AREA",
-        Moneda = 1,
-        NumeroMayor = command.BreakdownLedgers ? Ledger.Parse(entry.LedgerUID).Id.ToString(): "CONSOLIDADO",
+        NumeroMayor = command.BreakdownLedgers ? Ledger.Parse(entry.LedgerUID).Id.ToString() : "CONSOLIDADO",
         Cuenta = account.Number,
+        NaturalezaCuenta = account.DebtorCreditor == DebtorCreditorType.Deudora ? 1 : -1,
         Sector = entry.SectorCode,
         Auxiliar = subledgerAccount.IsEmptyInstance ? "0" : subledgerAccount.Number,
-        FechaUltimoMovimiento = entry.LastChangeDate,
-        Saldo = entry.CurrentBalanceForBalances,
         MonedaOrigen = Currency.Parse(entry.CurrencyCode).Id,
-        NaturalezaCuenta = account.DebtorCreditor == DebtorCreditorType.Deudora ? 1 : -1,
-        SaldoPromedio = Math.Round((decimal) entry.AverageBalance, 2),
+        SaldoAnterior = entry.InitialBalance,
         MontoDebito = entry.Debit,
         MontoCredito = entry.Credit,
-        SaldoAnterior = entry.InitialBalance,
-        Empresa = command.AccountsChartId,
-        CalificaMoneda = calificaMoneda != null ? calificaMoneda.CalificaSaldo.ToString() : "null"
+        Saldo = entry.CurrentBalanceForBalances,
+        SaldoPromedio = Math.Round((decimal) entry.AverageBalance, 2),
+        FechaUltimoMovimiento = entry.LastChangeDate,
       };
     }
 
