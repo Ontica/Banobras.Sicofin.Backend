@@ -7,8 +7,12 @@
 *  Summary  : Información de un registro de la tabla MC_ENCABEZADOS (Banobras) con pólizas por integrar.     *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using Empiria.Security;
 
 using Empiria.FinancialAccounting.Vouchers;
 
@@ -20,6 +24,10 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
   internal class Encabezado {
 
     private readonly List<ToImportVoucherIssue> _headerIssues = new List<ToImportVoucherIssue>();
+
+    static readonly string[] _securityRoles = new[] { "operacion-contable",
+                                                      "operador-sistema-transversal",
+                                                      "registro-contable" };
 
     #region Properties
 
@@ -193,14 +201,28 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.VouchersImporter {
 
       var participant = Participant.TryParse(userID);
 
-      if (participant != null) {
-        return participant;
+      if (participant == null) {
+        AddError($"No está registrada una cuenta con identificador '{userID}', " +
+                 $"correspondiente a la persona que elaboró el volante.");
+
+        return Participant.Empty;
       }
 
-      AddError($"No está registrada una cuenta con identificador '{userID}', " +
-               $"correspondiente a la persona que elaboró el volante.");
+      if (!AuthorizationService.IsSubjectActive(participant)) {
+        AddError($"La cuenta de la persona que elaboró el volante '{userID}' está suspendida o fue cancelada.");
 
-      return Participant.Empty;
+        return Participant.Empty;
+      }
+
+      if (!_securityRoles.Any(x => AuthorizationService.IsSubjectInRole(participant, x))) {
+
+        AddError($"La persona que elaboró el volante '{userID}', no tiene asignado un rol " +
+                 $"con permisos de registro de pólizas en SICOFIN.");
+
+        return Participant.Empty;
+      }
+
+      return participant;
     }
 
 
