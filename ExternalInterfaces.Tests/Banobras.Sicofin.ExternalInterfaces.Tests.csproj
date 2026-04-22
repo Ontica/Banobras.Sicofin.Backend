@@ -89,6 +89,9 @@
     <ProjectReference Include="..\ExternalInterfaces\Banobras.Sicofin.ExternalInterfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\financial.accounting\Reporting\Empiria.FinancialAccounting.Reporting.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="empiria.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
