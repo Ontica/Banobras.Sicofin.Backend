@@ -94,7 +94,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
 
     [HttpPost]  // // ToDo: Remove AllowAnonymous
-    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64")]
+    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64/excel")]
     public SingleObjectModel ExportBalanceForCNBV64ToExcel([FromBody] ExportBalancesCommand command) {
 
       base.RequireBody(command);
@@ -130,7 +130,7 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
 
     [HttpPost]  // // ToDo: Remove AllowAnonymous
-    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64")]
+    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv76/excel")]
     public SingleObjectModel ExportBalanceForCNBV76ToExcel([FromBody] ExportBalancesCommand command) {
 
       base.RequireBody(command);
