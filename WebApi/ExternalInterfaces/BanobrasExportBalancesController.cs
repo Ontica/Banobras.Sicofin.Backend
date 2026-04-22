@@ -78,13 +78,13 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     [HttpPost]  // // ToDo: Remove AllowAnonymous
     [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64")]
-    public CollectionModel GetBalanceForCNBV64([FromBody] ExportBalancesCommand command) {
+    public CollectionModel GetBalanceForCNBV64([FromBody] TrialBalanceQuery query) {
 
-      base.RequireBody(command);
+      base.RequireBody(query);
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(query);
 
         var balances = trialBalance.Entries.Select(x => (BalanzaTradicionalEntryDto) x);
 
@@ -95,13 +95,13 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     [HttpPost]  // // ToDo: Remove AllowAnonymous
     [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64/excel")]
-    public SingleObjectModel ExportBalanceForCNBV64ToExcel([FromBody] ExportBalancesCommand command) {
+    public SingleObjectModel ExportBalanceForCNBV64ToExcel([FromBody] TrialBalanceQuery query) {
 
-      base.RequireBody(command);
+      base.RequireBody(query);
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(query);
 
         var excelExporter = new BalancesExcelExporterService();
 
@@ -114,13 +114,13 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     [HttpPost]  // // ToDo: Remove AllowAnonymous
     [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv76")]
-    public CollectionModel GetBalanceForCNBV76([FromBody] ExportBalancesCommand command) {
+    public CollectionModel GetBalanceForCNBV76([FromBody] TrialBalanceQuery query) {
 
-      base.RequireBody(command);
+      base.RequireBody(query);
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(query);
 
         var balances = trialBalance.Entries.Select(x => (BalanzaTradicionalEntryDto) x);
 
@@ -131,13 +131,13 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
     [HttpPost]  // // ToDo: Remove AllowAnonymous
     [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv76/excel")]
-    public SingleObjectModel ExportBalanceForCNBV76ToExcel([FromBody] ExportBalancesCommand command) {
+    public SingleObjectModel ExportBalanceForCNBV76ToExcel([FromBody] TrialBalanceQuery query) {
 
-      base.RequireBody(command);
+      base.RequireBody(query);
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(query);
 
         var excelExporter = new BalancesExcelExporterService();
 

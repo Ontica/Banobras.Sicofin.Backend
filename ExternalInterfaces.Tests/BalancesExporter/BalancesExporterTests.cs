@@ -8,6 +8,7 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
+using System;
 using Empiria.FinancialAccounting.BalanceEngine;
 using Empiria.FinancialAccounting.BalanceEngine.Adapters;
 using Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapters;
@@ -28,12 +29,9 @@ namespace Empiria.FinancialAccounting.Tests.BalancesExporter {
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        ExportBalancesCommand command = new ExportBalancesCommand {
-          FromDate = new System.DateTime(2026,1,1),
-          ToDate = new System.DateTime(2026, 1, 31)
-        };
+        TrialBalanceQuery query = GetTrialBalanceQuery();
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(query);
 
         var sut = trialBalance.Entries.Select(x => (BalanzaTradicionalEntryDto) x);
 
@@ -47,12 +45,9 @@ namespace Empiria.FinancialAccounting.Tests.BalancesExporter {
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        ExportBalancesCommand command = new ExportBalancesCommand {
-          FromDate = new System.DateTime(2026, 1, 1),
-          ToDate = new System.DateTime(2026, 1, 31)
-        };
+        TrialBalanceQuery query = GetTrialBalanceQuery();
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(query);
 
         var excelExporter = new BalancesExcelExporterService();
 
@@ -62,18 +57,15 @@ namespace Empiria.FinancialAccounting.Tests.BalancesExporter {
       }
     }
 
-
+    
     [Fact]
     public void Should_Can_Export_BalanceForCNBV76Report() {
 
       using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
 
-        ExportBalancesCommand command = new ExportBalancesCommand {
-          FromDate = new System.DateTime(2026, 1, 1),
-          ToDate = new System.DateTime(2026, 1, 31)
-        };
+        TrialBalanceQuery query = GetTrialBalanceQuery();
 
-        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(command);
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(query);
 
         var excelExporter = new BalancesExcelExporterService();
 
@@ -83,6 +75,26 @@ namespace Empiria.FinancialAccounting.Tests.BalancesExporter {
       }
     }
 
+    #region Private methods
+
+    private TrialBalanceQuery GetTrialBalanceQuery() {
+
+      return new TrialBalanceQuery() {
+        TrialBalanceType = TrialBalanceType.Balanza,
+        InitialPeriod = {
+           FromDate = new DateTime(2026,1,1),
+           ToDate = new DateTime(2026,1,31)
+          },
+        AccountsChartUID = AccountsChart.IFRS.UID,
+        WithSubledgerAccount = true,
+        FromAccount = "1.15",
+        ToAccount = "1.15",
+        BalancesType = BalancesType.WithCurrentBalanceOrMovements,
+        ShowCascadeBalances = false
+      };
+    }
+
+    #endregion Private methods
 
   } // class BalancesExporterTests
 

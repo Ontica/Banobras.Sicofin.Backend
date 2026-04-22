@@ -55,67 +55,26 @@ namespace Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.UseCa
     }
 
 
-    public TrialBalanceDto GetBalanceForCNBV64Report(ExportBalancesCommand command) {
-      Assertion.Require(command, nameof(command));
+    public TrialBalanceDto GetBalanceForCNBV64Report(TrialBalanceQuery query) {
+      Assertion.Require(query, nameof(query));
 
       using (var usecases = TrialBalanceUseCases.UseCaseInteractor()) {
 
-        TrialBalanceQuery _query = MapToBalanceQueryCNBV64(command);
-
-        return usecases.BuildTrialBalance(_query);
+        return usecases.BuildTrialBalance(query);
       }
     }
 
 
-    public TrialBalanceDto GetBalanceForCNBV76Report(ExportBalancesCommand command) {
-      Assertion.Require(command, nameof(command));
+    public TrialBalanceDto GetBalanceForCNBV76Report(TrialBalanceQuery query) {
+      Assertion.Require(query, nameof(query));
 
       using (var usecases = TrialBalanceUseCases.UseCaseInteractor()) {
 
-        TrialBalanceQuery _query = MapToBalanceQueryCNBV76(command);
-
-        return usecases.BuildTrialBalance(_query);
+        return usecases.BuildTrialBalance(query);
       }
     }
 
     #endregion Use cases
-
-    #region Helpers
-
-    private TrialBalanceQuery MapToBalanceQueryCNBV64(ExportBalancesCommand command) {
-      return new TrialBalanceQuery {
-        TrialBalanceType = TrialBalanceType.Balanza,
-        AccountsChartUID = AccountsChart.IFRS.UID,
-        WithSubledgerAccount = true,
-        FromAccount = "1.15",
-        ToAccount = "1.15",
-        BalancesType = BalancesType.WithCurrentBalanceOrMovements,
-        ShowCascadeBalances = false,
-        InitialPeriod = {
-          FromDate = command.FromDate,
-          ToDate = command.ToDate
-        }
-      };
-    }
-
-
-    private TrialBalanceQuery MapToBalanceQueryCNBV76(ExportBalancesCommand command) {
-      return new TrialBalanceQuery {
-        TrialBalanceType = TrialBalanceType.Balanza,
-        AccountsChartUID = AccountsChart.IFRS.UID,
-        FromAccount = "20.01",
-        ToAccount = "20.01",
-        Ledgers = new string[] { "81816c16-3306-98b0-66bf-a69021e31171" },
-        BalancesType = BalancesType.AllAccounts,
-        ShowCascadeBalances = false,
-        InitialPeriod = {
-          FromDate = command.FromDate,
-          ToDate = command.ToDate
-        }
-      };
-    }
-
-    #endregion Helpers
 
   }  // class ExportBalancesUseCases
 
