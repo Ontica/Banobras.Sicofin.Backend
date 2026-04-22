@@ -10,10 +10,13 @@
 
 using System.Web.Http;
 
+using Empiria.Storage;
 using Empiria.WebApi;
 
+using Empiria.FinancialAccounting.BalanceEngine.Adapters;
 using Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.Adapters;
 using Empiria.FinancialAccounting.BanobrasIntegration.BalancesExporter.UseCases;
+using Empiria.FinancialAccounting.Reporting.Balances;
 
 namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
 
@@ -69,6 +72,78 @@ namespace Empiria.FinancialAccounting.WebApi.BanobrasIntegration {
         FixedList<ExportedBalancesDto> balancesDto = usecases.Export(command);
 
         return new CollectionModel(this.Request, balancesDto);
+      }
+    }
+
+
+    [HttpPost]  // // ToDo: Remove AllowAnonymous
+    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64")]
+    public CollectionModel GetBalanceForCNBV64([FromBody] ExportBalancesCommand command) {
+
+      base.RequireBody(command);
+
+      using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
+
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(command);
+
+        var balances = trialBalance.Entries.Select(x => (BalanzaTradicionalEntryDto) x);
+
+        return new CollectionModel(this.Request, new FixedList<BalanzaTradicionalEntryDto>(balances));
+      }
+    }
+
+
+    [HttpPost]  // // ToDo: Remove AllowAnonymous
+    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64")]
+    public SingleObjectModel ExportBalanceForCNBV64ToExcel([FromBody] ExportBalancesCommand command) {
+
+      base.RequireBody(command);
+
+      using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
+
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV64Report(command);
+
+        var excelExporter = new BalancesExcelExporterService();
+
+        FileDto excelFileDto = excelExporter.Export(trialBalance);
+
+        return new SingleObjectModel(this.Request, excelFileDto);
+      }
+    }
+
+
+    [HttpPost]  // // ToDo: Remove AllowAnonymous
+    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv76")]
+    public CollectionModel GetBalanceForCNBV76([FromBody] ExportBalancesCommand command) {
+
+      base.RequireBody(command);
+
+      using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
+
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(command);
+
+        var balances = trialBalance.Entries.Select(x => (BalanzaTradicionalEntryDto) x);
+
+        return new CollectionModel(this.Request, new FixedList<BalanzaTradicionalEntryDto>(balances));
+      }
+    }
+
+
+    [HttpPost]  // // ToDo: Remove AllowAnonymous
+    [Route("v2/financial-accounting/integration/rerdo/balances-for-cnbv64")]
+    public SingleObjectModel ExportBalanceForCNBV76ToExcel([FromBody] ExportBalancesCommand command) {
+
+      base.RequireBody(command);
+
+      using (var usecases = ExportBalancesUseCases.UseCaseInteractor()) {
+
+        TrialBalanceDto trialBalance = usecases.GetBalanceForCNBV76Report(command);
+
+        var excelExporter = new BalancesExcelExporterService();
+
+        FileDto excelFileDto = excelExporter.Export(trialBalance);
+
+        return new SingleObjectModel(this.Request, excelFileDto);
       }
     }
 
